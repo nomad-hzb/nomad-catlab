@@ -63,13 +63,13 @@ from baseclasses import SingleSampleExperiment, BaseMeasurement
 class CatLab_CoSputtering(SputteringProcess):
     m_def = Section(
         a_eln=dict(
-            hide=["target_2", "voltage", "source"],
+            hide=["target", "target_2", "voltage", "source"],
             properties=dict(
                 order=[
                     "name",
                 ])))
 
-    target = SubSection(
+    targets = SubSection(
         section_def=PubChemPureSubstanceSection, repeats=True)
 
     gas = SubSection(
@@ -219,6 +219,20 @@ def create_step(archive, step_idx, step, sample_id):
         return get_reference(archive.metadata.upload_id, entry_id)
 
 
+def copy_step(entity, archive, step_idx, step, sample_id):
+    step.method = entity.method
+    step.method_type = "Single"
+    if "Library" in entity.m_root().metadata.entry_type:
+        step.method_type = "Library"
+    file_name = f"{step_idx}_{sample_id}_{step.method}_{step.method_type}.archive.json"
+    entity.samples = [CompositeSystemReference(lab_id=sample_id)]
+    entity.name = step.name
+
+    if create_archive(entity, archive, file_name):
+        entry_id = get_entry_id_from_file_name(file_name, archive)
+        return get_reference(archive.metadata.upload_id, entry_id)
+
+
 def create_sample(archive, sample_type, sample_id):
     if sample_type == "Sample":
         entity = CatLab_Sample()
@@ -250,8 +264,12 @@ class CatLab_Experiment(SingleSampleExperiment, EntryData):
 
         if self.steps and self.sample.lab_id:
             for i, step in enumerate(self.steps):
-                if not step.create_experimental_step or step.activity:
+                if not step.create_experimental_step:
                     continue
+                if step.activity:
+                    step.activity = copy_step(step.activity, archive, i, step, self.sample.lab_id)
+                    continue
+
                 step.create_experimental_step = False
                 rewrite_json(["data", "steps", i, "create_experimental_step"], archive, False)
 
