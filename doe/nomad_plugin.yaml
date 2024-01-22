@@ -1,0 +1,4 @@
+plugin_type: schema
+name: NOMAD schema for Catlab DoE plugin
+description: |
+  This is a plugin with the functionality to create a DoE for catlab.
