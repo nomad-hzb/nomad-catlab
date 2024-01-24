@@ -16,48 +16,36 @@
 # limitations under the License.
 #
 
+import datetime
 import os
+
 import numpy as np
-# from nomad.units import ureg
-from nomad.metainfo import (
-    Package,
-    Section, SubSection, Quantity)
-
-from nomad.datamodel.metainfo.basesections import (
-    CompositeSystemReference
-)
-
-from nomad.datamodel.data import EntryData
-
-
+from baseclasses import SingleSampleExperiment, BaseMeasurement
 from baseclasses.catalysis import (
     CatalysisLibrary, CatalysisSample
 )
-
+from baseclasses.helper.utilities import create_archive, rewrite_json, get_entry_id_from_file_name, get_reference
 from baseclasses.vapour_based_deposition import (
     Sputtering, SputteringProcess, PECVDeposition, PECVDProcess
 
 )
-
-
-from nomad.datamodel.metainfo.annotations import (
-    ELNAnnotation,
-)
-
-from nomad_measurements.catalytic_measurement.catalytic_measurement import ReactionConditions
-
-
-from nomad.datamodel.metainfo.basesections import PubChemPureSubstanceSection
-
-
-from baseclasses.helper.utilities import create_archive, rewrite_json, get_entry_id_from_file_name, get_reference
-
 from hzb_characterizations import (
     HZB_SEM_Merlin, HZB_TGA, HZB_XPS, HZB_XRD, HZB_XRR, HZB_XRF, HZB_Ellipsometry,
     HZB_XRD_Library, HZB_XPS_Library, HZB_XRR_Library, HZB_XRF_Library, HZB_Ellipsometry_Library
 )
 
-from baseclasses import SingleSampleExperiment, BaseMeasurement
+from nomad.datamodel.data import EntryData
+from nomad.datamodel.metainfo.annotations import (
+    ELNAnnotation,
+)
+from nomad.datamodel.metainfo.basesections import (
+    CompositeSystemReference
+)
+from nomad.datamodel.metainfo.basesections import PubChemPureSubstanceSection
+# from nomad.units import ureg
+from nomad.metainfo import (
+    Section, SubSection, Quantity)
+from nomad_measurements.catalytic_measurement.catalytic_measurement import ReactionConditions
 
 
 class CatLab_CoSputtering(SputteringProcess):
@@ -146,7 +134,7 @@ class CatLab_PECVD(PECVDeposition, EntryData):
         if self.process is not None:
             process = self.process
         if self.recipe is not None and os.path.splitext(self.recipe)[
-                1] == ".set":
+            1] == ".set":
             from baseclasses.helper.file_parser.parse_files_pecvd_pvcomb import parse_recipe
             with archive.m_context.raw_file(self.recipe) as f:
                 parse_recipe(f, process)
@@ -227,6 +215,7 @@ def copy_step(entity, archive, step_idx, step, sample_id):
     file_name = f"{step_idx}_{sample_id}_{step.method}_{step.method_type}.archive.json"
     entity.samples = [CompositeSystemReference(lab_id=sample_id)]
     entity.name = step.name
+    entity.datetime = datetime.datetime.now()
 
     if create_archive(entity, archive, file_name):
         entry_id = get_entry_id_from_file_name(file_name, archive)
@@ -273,6 +262,6 @@ class CatLab_Experiment(SingleSampleExperiment, EntryData):
                 step.create_experimental_step = False
                 rewrite_json(["data", "steps", i, "create_experimental_step"], archive, False)
 
-                step.activity = create_step(archive,  i, step, self.sample.lab_id)
+                step.activity = create_step(archive, i, step, self.sample.lab_id)
 
         super(CatLab_Experiment, self).normalize(archive, logger)
