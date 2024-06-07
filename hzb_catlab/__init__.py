@@ -26,7 +26,7 @@ from baseclasses.catalysis import (
 )
 from baseclasses.helper.utilities import create_archive, rewrite_json, get_entry_id_from_file_name, get_reference
 from baseclasses.vapour_based_deposition import (
-    Sputtering, SputteringProcess, PECVDeposition, PECVDProcess
+    MultiTargetSputtering, SputteringProcess, PECVDeposition, PECVDProcess
 
 )
 from hzb_characterizations import (
@@ -46,22 +46,6 @@ from nomad.datamodel.metainfo.basesections import PubChemPureSubstanceSection
 from nomad.metainfo import (
     Section, SubSection, Quantity)
 from nomad_measurements.catalytic_measurement.catalytic_measurement import ReactionConditions
-
-
-class CatLab_CoSputtering(SputteringProcess):
-    m_def = Section(
-        a_eln=dict(
-            hide=["target", "target_2", "voltage", "source"],
-            properties=dict(
-                order=[
-                    "name",
-                ])))
-
-    targets = SubSection(
-        section_def=PubChemPureSubstanceSection, repeats=True)
-
-    gas = SubSection(
-        section_def=PubChemPureSubstanceSection)
 
 
 class CatLab_Sample(CatalysisSample, EntryData):
@@ -86,7 +70,7 @@ class CatLab_Library(CatalysisLibrary, EntryData):
                 ])))
 
 
-class CatLab_Sputtering(Sputtering, EntryData):
+class CatLab_Sputtering(MultiTargetSputtering, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=["users", "elemental_composition", "components", "present",
@@ -96,9 +80,6 @@ class CatLab_Sputtering(Sputtering, EntryData):
                     "name",
                     "lab_id",
                 ])))
-
-    processes = SubSection(
-        section_def=CatLab_CoSputtering, repeats=True)
 
 
 class Catlab_SimpleCatalyticReaction(BaseMeasurement, EntryData):
@@ -134,7 +115,7 @@ class CatLab_PECVD(PECVDeposition, EntryData):
         if self.process is not None:
             process = self.process
         if self.recipe is not None and os.path.splitext(self.recipe)[
-            1] == ".set":
+                1] == ".set":
             from baseclasses.helper.file_parser.parse_files_pecvd_pvcomb import parse_recipe
             with archive.m_context.raw_file(self.recipe) as f:
                 parse_recipe(f, process)

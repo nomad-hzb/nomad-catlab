@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../baseclasses/.idea/baseclasses.iml" filepath="$PROJECT_DIR$/../baseclasses/.idea/baseclasses.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/catlab.iml" filepath="$PROJECT_DIR$/.idea/catlab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../chemical_energy/.idea/chemical_energy.iml" filepath="$PROJECT_DIR$/../chemical_energy/.idea/chemical_energy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../hysprint/.idea/hysprint.iml" filepath="$PROJECT_DIR$/../hysprint/.idea/hysprint.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../nomad-FAIR/.idea/nomad-FAIR.iml" filepath="$PROJECT_DIR$/../../nomad-FAIR/.idea/nomad-FAIR.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pvcomb-schema/.idea/pvcomb-schema.iml" filepath="$PROJECT_DIR$/../pvcomb-schema/.idea/pvcomb-schema.iml" />
+    </modules>
+  </component>
+</project>

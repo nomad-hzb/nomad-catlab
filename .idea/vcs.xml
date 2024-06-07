@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/matid" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/nomad-dos-fingerprints" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/nomad-remote-tools-hub" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/nomad-remote-tools-hub/docker/webtop/north-guacamole-client" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/atomistic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/database" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/eelsdb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/electronic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/nexus" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/nexus/nexusutils/definitions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/nexus/pynxtools/definitions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/dependencies/parsers/workflow" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/examples/plugins/parser" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/examples/plugins/schema" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/gui/crystcif-parse" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../../nomad-FAIR/gui/materia" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../baseclasses" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../chemical_energy" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../hysprint" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../pvcomb-schema" vcs="Git" />
+  </component>
+</project>
